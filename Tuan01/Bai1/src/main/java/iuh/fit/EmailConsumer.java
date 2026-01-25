@@ -3,6 +3,7 @@ package iuh.fit;
 import com.rabbitmq.client.*;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import java.util.Properties;
 
@@ -10,12 +11,19 @@ public class EmailConsumer {
 
     private static final String HOST = "localhost";
 
-    // cấu hình email
-    private static final String FROM_EMAIL = "nhatduy20072004@gmail.com";
-    private static final String APP_PASSWORD = "ybdj scxm kxtb piua";
+    // biến email (load từ .env)
+    private static String FROM_EMAIL;
+    private static String APP_PASSWORD;
 
     public static void main(String[] args) throws Exception {
 
+        // 1️⃣ Load .env
+        Dotenv dotenv = Dotenv.load();
+
+        FROM_EMAIL = dotenv.get("MAIL_NAME");
+        APP_PASSWORD = dotenv.get("MAIL_PASSWORD");
+
+        // 2️⃣ RabbitMQ
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(HOST);
 
@@ -49,6 +57,7 @@ public class EmailConsumer {
     }
 
     private static void sendEmail(String to, String subject, String content) {
+
         try {
             Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
