@@ -1,0 +1,22 @@
+# Comment (dòng chú thích)
+
+# Bỏ qua file cụ thể
+secret.txt
+
+# Bỏ qua theo đuôi file
+*.log
+*.env
+
+# Bỏ qua thư mục
+node_modules/
+dist/
+build/
+
+# Bỏ qua thư mục ở mọi cấp độ
+**/cache/
+
+# Bỏ qua file trong thư mục cụ thể
+src/*.temp
+
+# NGOẠI LỆ — dùng ! để không bỏ qua
+!important.log
